@@ -3,5 +3,8 @@ Dockerfile
 .dockerignore
 .gitignore
 pnpm-lock.yaml
-README.md
+.env
+jest.config.js
+nodemon.json
+
 
