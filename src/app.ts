@@ -1,9 +1,9 @@
 import express from "express";
-import * as dotevnv from "dotenv";
+import * as dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 
-dotevnv.config();
+dotenv.config();
 
 if (!process.env.PORT) {
   console.log(`No port value specified...`);
