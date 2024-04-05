@@ -1,6 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import firebase from "firebase-admin";
-import key from "../../service-account-key.json";
+import * as dotenv from "dotenv";
+
+dotenv.config();
+
+if (!process.env.FIREBASE_SERVICE_ACCOUNT)
+  throw new Error("Missing FIREBASE_SERVICE_ACCOUNT");
+const key = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 firebase.initializeApp({
   credential: firebase.credential.cert(key as firebase.ServiceAccount),
