@@ -63,21 +63,6 @@ describe("Transactions", () => {
     account: "Spenden",
   };
 
-  describe("GET /transaction", () => {
-    it("should return 200 OK", async () => {
-      const response = await request(app)
-        .get("/transaction/all")
-        .set("Authorization", `Bearer ${idToken}`);
-      expect(response.status).toBe(200);
-    });
-    it("should return 200 OK", async () => {
-      const response = await request(app)
-        .get("/transaction/1234")
-        .set("Authorization", `Bearer ${idToken}`);
-      expect(response.status).toBe(200);
-    });
-  });
-
   describe("POST /transaction", () => {
     it("should return 200 OK", async () => {
       const response = await request(app)
@@ -111,20 +96,41 @@ describe("Transactions", () => {
     });
   });
 
-  describe("PATCH /transaction", () => {
-    it("should return 200 OK", async () => {
+  let firstTransaction: Record<string, any>;
+  describe("GET /transaction", () => {
+    it("should return all transactions", async () => {
       const response = await request(app)
-        .patch("/transaction/1234")
+        .get("/transaction/all")
         .set("Authorization", `Bearer ${idToken}`);
       expect(response.status).toBe(200);
+      expect(response.body.length).toBeGreaterThanOrEqual(1);
+      firstTransaction = response.body[0];
+    });
+    it("should find and return a transaction by its ID", async () => {
+      const response = await request(app)
+        .get("/transaction/" + firstTransaction._id)
+        .set("Authorization", `Bearer ${idToken}`);
+      expect(response.status).toBe(200);
+      expect(response.body).toMatchObject(firstTransaction);
+    });
+  });
+
+  describe("PATCH /transaction", () => {
+    it("should update the transaction", async () => {
+      const response = await request(app)
+        .patch("/transaction/" + firstTransaction._id)
+        .send({ amount: 800 })
+        .set("Authorization", `Bearer ${idToken}`);
+      expect(response.status).toBe(200);
+      expect(response.body).toMatchObject({ ...firstTransaction, amount: 800 });
     });
   });
   describe("DELETE /transaction", () => {
-    it("should return 200 OK", async () => {
+    it("should delete the specified document", async () => {
       const response = await request(app)
-        .delete("/transaction/1234")
+        .delete("/transaction/" + firstTransaction._id)
         .set("Authorization", `Bearer ${idToken}`);
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(204);
     });
   });
 });

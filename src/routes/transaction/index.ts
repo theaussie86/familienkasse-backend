@@ -1,23 +1,21 @@
 import { Router, Request, Response } from "express";
-import { createTransaction } from "../../controllers/transaction";
+import {
+  createTransaction,
+  deleteTransactionById,
+  getTransactionById,
+  getTransactions,
+  updateTransactionById,
+} from "../../controllers/transaction";
 
 // Create a new router instance
 const router = Router();
 
 // Define your route handler
-router.get("/all", (req: Request, res: Response) => {
-  res.send("reading all transactions");
-});
-router.get("/:id", (req: Request, res: Response) => {
-  res.send("reading a single transaction");
-});
+router.get("/all", getTransactions);
+router.get("/:id", getTransactionById);
 router.post("/", createTransaction);
-router.patch("/:id", (req: Request, res: Response) => {
-  res.send("updating a transaction");
-});
-router.delete("/:id", (req: Request, res: Response) => {
-  res.send("deleting a transaction");
-});
+router.patch("/:id", updateTransactionById);
+router.delete("/:id", deleteTransactionById);
 
 // Export the router
 export default router;
