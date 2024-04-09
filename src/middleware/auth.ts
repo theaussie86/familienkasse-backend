@@ -1,16 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import firebase from "firebase-admin";
-import * as dotenv from "dotenv";
-
-dotenv.config();
-
-if (!process.env.FIREBASE_SERVICE_ACCOUNT)
-  throw new Error("Missing FIREBASE_SERVICE_ACCOUNT");
-const key = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-
-firebase.initializeApp({
-  credential: firebase.credential.cert(key as firebase.ServiceAccount),
-});
+import admin from "../util/firebase";
 
 export const authenticateJWT = async (
   req: Request,
@@ -26,7 +15,7 @@ export const authenticateJWT = async (
   try {
     const token = authHeader.split(" ")[1];
 
-    await firebase
+    await admin
       .auth()
       .verifyIdToken(token)
       .then(() => next());
