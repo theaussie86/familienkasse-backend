@@ -49,6 +49,47 @@ describe("GET /", () => {
   });
 });
 
+describe("Transactions", () => {
+  describe("GET /transaction", () => {
+    it("should return 200 OK", async () => {
+      const response = await request(app)
+        .get("/transaction/all")
+        .set("Authorization", `Bearer ${idToken}`);
+      expect(response.status).toBe(200);
+    });
+    it("should return 200 OK", async () => {
+      const response = await request(app)
+        .get("/transaction/1234")
+        .set("Authorization", `Bearer ${idToken}`);
+      expect(response.status).toBe(200);
+    });
+  });
+  describe("POST /transaction", () => {
+    it("should return 200 OK", async () => {
+      const response = await request(app)
+        .post("/transaction/1234")
+        .set("Authorization", `Bearer ${idToken}`);
+      expect(response.status).toBe(200);
+    });
+  });
+  describe("PATCH /transaction", () => {
+    it("should return 200 OK", async () => {
+      const response = await request(app)
+        .patch("/transaction/1234")
+        .set("Authorization", `Bearer ${idToken}`);
+      expect(response.status).toBe(200);
+    });
+  });
+  describe("DELETE /transaction", () => {
+    it("should return 200 OK", async () => {
+      const response = await request(app)
+        .delete("/transaction/1234")
+        .set("Authorization", `Bearer ${idToken}`);
+      expect(response.status).toBe(200);
+    });
+  });
+});
+
 function generateTestToken() {
   return admin.auth().createCustomToken("testuser");
 }
