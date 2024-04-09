@@ -5,7 +5,6 @@ const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD
 export const connectDB = async () => {
   try {
     await mongoose.connect(mongoURI);
-    console.log("MongoDB connected");
   } catch (error) {
     console.error("MongoDB connection failed");
     console.error(error);

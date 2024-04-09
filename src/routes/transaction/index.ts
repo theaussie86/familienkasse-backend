@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { createTransaction } from "../../controllers/transaction";
 
 // Create a new router instance
 const router = Router();
@@ -10,9 +11,7 @@ router.get("/all", (req: Request, res: Response) => {
 router.get("/:id", (req: Request, res: Response) => {
   res.send("reading a single transaction");
 });
-router.post("/:id", (req: Request, res: Response) => {
-  res.send("creating a transaction");
-});
+router.post("/", createTransaction);
 router.patch("/:id", (req: Request, res: Response) => {
   res.send("updating a transaction");
 });

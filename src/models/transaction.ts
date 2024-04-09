@@ -14,7 +14,4 @@ const transactionSchema = new mongoose.Schema({
 
 type TransactionType = InferSchemaType<typeof transactionSchema>;
 
-export const TransactionModel = mongoose.model(
-  "Transaction",
-  transactionSchema
-);
+export const Transaction = mongoose.model("Transaction", transactionSchema);

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "test": "NODE_ENV=test jest --coverage --forceExit",
+    "test": "NODE_ENV=test jest --coverage --watchAll --forceExit",
     "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "delete-dist": "rimraf ./dist",
     "build": "tsc",
