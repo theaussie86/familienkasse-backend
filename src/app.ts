@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import router from "./routes";
+import transactionRouter from "./routes/transaction";
 import { authenticateJWT } from "./middleware/auth";
 
 const app = express();
@@ -13,5 +14,6 @@ app.use(helmet());
 
 app.use(authenticateJWT);
 app.use(router);
+app.use("/transaction", transactionRouter);
 
 export default app;
