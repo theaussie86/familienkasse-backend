@@ -49,8 +49,9 @@ export const updateTransactionById = async (req: Request, res: Response) => {
 
 export const deleteTransactionById = async (req: Request, res: Response) => {
   try {
-    await Transaction.findByIdAndDelete(req.params.id);
-    res.status(204).send();
+    const transaction = await Transaction.findById(req.params.id);
+    const deletedTransaction = await transaction?.deleteOne();
+    res.status(202).json(deletedTransaction);
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });
   }
